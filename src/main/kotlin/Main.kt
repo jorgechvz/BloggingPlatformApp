@@ -2,6 +2,7 @@ import services.AuthService
 import services.BlogService
 
 fun main() {
+    // Create instances of the services to use their methods in the main function
     val authService = AuthService()
     val blogService = BlogService()
     // Load users from a Json File
@@ -64,11 +65,13 @@ fun main() {
                 println("4. Update a blog")
                 println("5. Delete a blog")
                 println("6. Display all blogs")
-                println("7. Exit")
+                println("7. Display details of a blog")
+                println("8. Exit")
                 println("-----------------------------")
                 print("Enter your choice: ")
                 val choice = readln().toInt()
                 when (choice) {
+                    // Create a blog 
                     1 -> {
                         println("\nCreate a blog:")
                         print("\nEnter the title: ")
@@ -79,6 +82,7 @@ fun main() {
                         println("Post created.")
                         Thread.sleep(2000)
                     }
+                    // Publish a blog
                     2 -> {
                         val userPosts = blogService.getUnpublishedPostsByUser(currentUserId)
                         if (userPosts.isEmpty()) {
@@ -108,6 +112,7 @@ fun main() {
                             println("Invalid blog number.")
                         }
                     }
+                    // Unpublish a blog
                     3 -> {
                         val posts = blogService.getPublishedPostsByUser(currentUserId)
                         if (posts.isEmpty()) {
@@ -137,6 +142,7 @@ fun main() {
                             println("Invalid Blog number.")
                         }
                     }
+                    // Update a blog
                     4 -> {
                         val posts = blogService.getPostsByUser(currentUserId)
                         if (posts.isEmpty()) {
@@ -175,6 +181,7 @@ fun main() {
                             println("Invalid Blog number.")
                         }
                     }
+                    // Delete a blog
                     5 -> {
                         val posts = blogService.getPostsByUser(currentUserId)
                         if (posts.isEmpty()) {
@@ -204,6 +211,7 @@ fun main() {
                             println("Invalid Blog number.")
                         }
                     }
+                    // Display all blogs
                     6 -> {
                         val posts = blogService.getPostsByUser(currentUserId)
                         if (posts.isEmpty()) {
@@ -227,7 +235,43 @@ fun main() {
                             continue
                         }
                     }
+                    // Display details of a blog 
                     7 -> {
+                        val posts = blogService.getPostsByUser(currentUserId)
+                        if (posts.isEmpty()) {
+                            println("\nYou have no blogs.")
+                            print("\nEnter 0 to return to the main menu: ")
+                            val option = readln().toInt()
+                            if (option == 0) {
+                                continue
+                            }
+                        }
+                        println("\nYour blogs:\n")
+                        posts.forEachIndexed { index, post ->
+                            println("${index + 1}. ${post.title}")
+                        }
+                        print(
+                                "\nEnter the number of the blog to display details or enter 0 to return to the main menu: "
+                        )
+                        val postNumber = readln().toInt()
+                        if (postNumber in 1..posts.size) {
+                            val post = posts[postNumber - 1]
+                            println("\nTitle: ${post.title}")
+                            println("Content: ${post.content}")
+                            println("Published: ${if (post.published) "Yes" else "No"}")
+                            print("\nEnter 0 to return to the main menu: ")
+                            val returnMenu = readln().toInt()
+                            if (returnMenu == 0) {
+                                continue
+                            }
+                        } else if (postNumber == 0) {
+                            continue
+                        } else {
+                            println("Invalid Blog number.")
+                        }
+                    }
+                    // Exit the app
+                    8 -> {
                         println("Goodbye $username")
                         break
                     }
