@@ -6,7 +6,7 @@ The app allows users to register, log in, create, edit and delete blogs. I also 
 
 My purpose in writing this software was to learn more about Kotlin, especially in terms of its syntax, its object-oriented programming features, and its interaction with JSON files and data.
 
-[Blogging Platform App Demo](http://youtube.link.goes.here)
+[Blogging Platform App Demo](https://youtu.be/4vNmDJ6SpVA)
 
 # DevelopmentEnvironment
 
